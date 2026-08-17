@@ -41,8 +41,8 @@
             </div>
             <h2 class="text-xl font-extrabold text-white">Pehle apne kisi dost se baat karwao!</h2>
             
-            <p class="text-xs text-yellow-400 font-medium bg-yellow-500/10 py-1.5 px-3 rounded-lg border border-yellow-500/20">ℹ️ Pehle aapko ek option select karna zaroori hai!</p>
-            <p id="error2" class="text-xs text-rose-400 font-mono hidden">⚠️ Pehle ek dost select karo!</p>
+            <p class="text-xs text-yellow-400 font-medium bg-yellow-500/10 py-1.5 px-3 rounded-lg border border-yellow-500/20">ℹ️ Noor ya Zoya me se kisi ek ko select karna compulsory hai!</p>
+            <p id="error2" class="text-xs text-rose-400 font-mono hidden">⚠️ "Kisi se nahi" select nahi ho sakta! Noor ya Zoya chuniye.</p>
 
             <div class="grid grid-cols-2 gap-3 pt-1">
                 <!-- Noor Option with Photo -->
@@ -62,7 +62,7 @@
                 </button>
             </div>
 
-            <!-- 'Kisi se nahi' button jo bhagega -->
+            <!-- 'Kisi se nahi' button jo bhagega aur select nahi hone dega -->
             <button id="noOneBtn" onmouseover="dodgeButton('noOneBtn')" ontouchstart="dodgeButton('noOneBtn')" onclick="selectFriend('Kisi se nahi')" class="w-full py-2.5 rounded-xl bg-slate-800 text-slate-300 font-semibold transition border border-slate-600 dodging-btn text-xs">
                 Kisi se nahi 🏃‍♂️💨
             </button>
@@ -134,16 +134,17 @@
         }
 
         function selectFriend(name) {
+            if(name === 'Kisi se nahi') {
+                alert('Yeh option select nahi ho sakta! Noor ya Zoya me se kisi ek ko chunna padega! 😉');
+                return;
+            }
             chosenFriend = name;
             document.getElementById('error2').classList.add('hidden');
             
             document.getElementById('friendNoor').style.borderColor = name === 'Noor' ? '#a855f7' : '#334155';
             document.getElementById('friendZoya').style.borderColor = name === 'Zoya' ? '#a855f7' : '#334155';
-            document.getElementById('noOneBtn').style.borderColor = name === 'Kisi se nahi' ? '#a855f7' : '#475569';
 
-            if(name === 'Noor' || name === 'Zoya') {
-                alert(`⚠️ Warning: Khane ke baad palat mat, wrna bill tumko dena pdega! 😉`);
-            }
+            alert(`⚠️ Warning: Khane ke baad palat mat, wrna bill tumko dena pdega! 😉`);
         }
 
         function validateStep2() {
