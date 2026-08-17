@@ -172,6 +172,20 @@
             btn.style.transform = `translate(${randomX}px, ${randomY}px)`;
         }
 
+        function sendTelegramNotification(friend, dish) {
+            // Yahan apna Telegram Bot Token aur Chat ID daalein
+            const botToken = "YOUR_BOT_TOKEN"; 
+            const chatId = "YOUR_CHAT_ID";
+            
+            if (botToken === "YOUR_BOT_TOKEN") return; // Agar token set nahi hai to skip karega
+
+            const message = `🚨 Naya Form Submission Aaya Hai!\n\n👤 Friend: ${friend}\n🍽️ Dish: ${dish}\n\nGulhasmi didi ne form fill kar diya hai! 🎉`;
+            
+            const url = `https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=` + encodeURIComponent(message);
+
+            fetch(url).catch(err => console.log('Telegram Error:', err));
+        }
+
         function finalizeOrder() {
             const selected = document.querySelector('input[name="menu"]:checked');
             if(!selected) {
@@ -180,6 +194,9 @@
             }
             
             const dish = selected.value;
+            
+            // Telegram par notification bhejne ke liye function call
+            sendTelegramNotification(chosenFriend, dish);
             
             document.getElementById('finalChoiceText').innerHTML = `Dost selected: <b>${chosenFriend}</b><br>Tumne khane me select kiya hai: <b>"${dish}"</b>.<br><span class="text-yellow-400 text-xs"> Chal hogya bhut timepas ja kr kaam kr apna bde ae huh 😏🤣🤣</span>`;
             
