@@ -34,20 +34,20 @@
             <button onclick="validateStep1()" class="w-full mt-2 py-3 rounded-xl bg-pink-600 hover:bg-pink-500 text-white font-bold transition shadow-lg shadow-pink-600/30">Aage Badhein ➔</button>
         </div>
 
-        <!-- STEP 2: Dost se baat krwao (Noor, Zoya, Kisi se nahi) -->
+        <!-- STEP 2: Dost se baat krwao (Only Noor & Zoya) -->
         <div id="step2" class="space-y-4 hidden">
             <div class="w-16 h-16 mx-auto rounded-full bg-purple-500/20 border border-purple-500/40 flex items-center justify-center text-purple-400 text-2xl">
                 <i class="fa-solid fa-user-group"></i>
             </div>
             <h2 class="text-xl font-extrabold text-white">Pehle apne kisi dost se baat karwao!</h2>
             
-            <p class="text-xs text-yellow-400 font-medium bg-yellow-500/10 py-1.5 px-3 rounded-lg border border-yellow-500/20">ℹ️ Noor ya Zoya me se kisi ek ko select karna compulsory hai!</p>
-            <p id="error2" class="text-xs text-rose-400 font-mono hidden">⚠️ "Kisi se nahi" select nahi ho sakta! Noor ya Zoya chuniye.</p>
+            <p class="text-xs text-yellow-400 font-medium bg-yellow-500/10 py-1.5 px-3 rounded-lg border border-yellow-500/20">ℹ️ Noor ya Zoya me se ek ko chunna compulsory hai!</p>
+            <p id="error2" class="text-xs text-rose-400 font-mono hidden">⚠️ Pehle Noor ya Zoya me se ek select karo!</p>
 
-            <div class="grid grid-cols-2 gap-3 pt-1">
+            <div class="grid grid-cols-2 gap-3 pt-2">
                 <!-- Noor Option with Photo -->
                 <button onclick="selectFriend('Noor')" id="friendNoor" class="glass p-3 rounded-2xl border border-slate-700 flex flex-col items-center gap-2 cursor-pointer hover:border-purple-500 transition">
-                    <div class="w-14 h-14 rounded-full overflow-hidden border border-purple-400/40 bg-slate-900">
+                    <div class="w-16 h-16 rounded-full overflow-hidden border border-purple-400/40 bg-slate-900">
                         <img src="noor.jpg" alt="Noor" class="w-full h-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=200'">
                     </div>
                     <span class="text-xs font-bold text-white">Noor</span>
@@ -55,19 +55,14 @@
 
                 <!-- Zoya Option with Photo -->
                 <button onclick="selectFriend('Zoya')" id="friendZoya" class="glass p-3 rounded-2xl border border-slate-700 flex flex-col items-center gap-2 cursor-pointer hover:border-purple-500 transition">
-                    <div class="w-14 h-14 rounded-full overflow-hidden border border-purple-400/40 bg-slate-900">
+                    <div class="w-16 h-16 rounded-full overflow-hidden border border-purple-400/40 bg-slate-900">
                         <img src="zoya.jpg" alt="Zoya" class="w-full h-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&q=80&w=200'">
                     </div>
                     <span class="text-xs font-bold text-white">Zoya</span>
                 </button>
             </div>
 
-            <!-- 'Kisi se nahi' button jo bhagega aur select nahi hone dega -->
-            <button id="noOneBtn" onmouseover="dodgeButton('noOneBtn')" ontouchstart="dodgeButton('noOneBtn')" onclick="selectFriend('Kisi se nahi')" class="w-full py-2.5 rounded-xl bg-slate-800 text-slate-300 font-semibold transition border border-slate-600 dodging-btn text-xs">
-                Kisi se nahi 🏃‍♂️💨
-            </button>
-
-            <button onclick="validateStep2()" class="w-full mt-1 py-3 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-bold transition shadow-lg">Confirm Friend & Continue ➔</button>
+            <button onclick="validateStep2()" class="w-full mt-3 py-3 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-bold transition shadow-lg">Confirm Friend & Continue ➔</button>
         </div>
 
         <!-- STEP 3: Indian Menu Selection -->
@@ -134,10 +129,6 @@
         }
 
         function selectFriend(name) {
-            if(name === 'Kisi se nahi') {
-                alert('Yeh option select nahi ho sakta! Noor ya Zoya me se kisi ek ko chunna padega! 😉');
-                return;
-            }
             chosenFriend = name;
             document.getElementById('error2').classList.add('hidden');
             
