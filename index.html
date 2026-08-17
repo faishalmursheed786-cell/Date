@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A Special Question For You</title>
+    <title>Dinner Plan With Friends</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
     <style>
@@ -13,7 +13,7 @@
 </head>
 <body class="min-h-screen flex items-center justify-center p-4">
 
-    <div class="w-full max-w-md glass border border-slate-700/80 rounded-3xl p-6 sm:p-8 shadow-2xl text-center relative overflow-hidden min-h-[420px] flex flex-col justify-center">
+    <div class="w-full max-w-md glass border border-slate-700/80 rounded-3xl p-6 sm:p-8 shadow-2xl text-center relative overflow-hidden min-h-[440px] flex flex-col justify-center">
 
         <!-- STEP 1: Khana Khane Chalogi? -->
         <div id="step1" class="space-y-6">
@@ -21,47 +21,62 @@
                 <i class="fa-solid fa-utensils"></i>
             </div>
             <h2 class="text-2xl sm:text-3xl font-extrabold text-white">Ek choti si request hai...</h2>
-            <p class="text-slate-300 text-lg">Kya tum mere sath dinner (khana) khane chalogi?</p>
-            <div class="flex gap-4 justify-center pt-4">
-                <button onclick="nextStep(2)" class="px-6 py-3 rounded-xl bg-pink-600 hover:bg-pink-500 text-white font-bold transition shadow-lg shadow-pink-600/30">Haan, zaroor! 😊</button>
-                <button id="noBtn" onmouseover="dodgeButton()" ontouchstart="dodgeButton()" class="px-6 py-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold transition border border-slate-600 relative">Nhi</button>
+            <p class="text-slate-300 text-lg">Kya tum mere sath dinner khane chalogi?</p>
+            
+            <p id="error1" class="text-xs text-rose-400 font-mono hidden">⚠️ Pehle ek option select karna hoga!</p>
+
+            <div class="flex gap-4 justify-center pt-2">
+                <button onclick="selectOption(1, 'Haan')" id="btnHaan" class="px-6 py-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold transition border border-slate-600">Haan, zaroor! 😊</button>
+                <button onclick="selectOption(1, 'Nhi')" id="btnNhi" class="px-6 py-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold transition border border-slate-600">Nhi</button>
             </div>
+            <button onclick="validateStep1()" class="w-full mt-4 py-3 rounded-xl bg-pink-600 hover:bg-pink-500 text-white font-bold transition shadow-lg shadow-pink-600/30">Aage Badhein ➔</button>
         </div>
 
-        <!-- STEP 2: Dost se baat krwao (Noor & Zoya) -->
-        <div id="step2" class="space-y-6 hidden">
+        <!-- STEP 2: Dost se baat krwao (Noor, Zoya, Kisi se nahi) -->
+        <div id="step2" class="space-y-5 hidden">
             <div class="w-16 h-16 mx-auto rounded-full bg-purple-500/20 border border-purple-500/40 flex items-center justify-center text-purple-400 text-2xl">
                 <i class="fa-solid fa-user-group"></i>
             </div>
-            <h2 class="text-2xl font-extrabold text-white">Pehle apne kisi dost se baat karwao!</h2>
-            <p class="text-slate-300 text-sm">Kisse baat karwaogi? Choose one:</p>
-            <div class="flex flex-col gap-3 pt-2 relative h-36" id="friendArea">
-                <button onclick="nextStep(3)" class="w-full py-3.5 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-bold transition shadow-lg">Noor</button>
-                <!-- Zoya button jo upar-neche bhagega -->
-                <button id="zoyaBtn" onmouseover="dodgeZoya()" ontouchstart="dodgeZoya()" onclick="nextStep(3)" class="w-full py-3.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-bold transition border border-slate-600 absolute bottom-0 left-0">Zoya</button>
+            <h2 class="text-xl sm:text-2xl font-extrabold text-white">Pehle apne kisi dost se baat karwao!</h2>
+            <p class="text-slate-300 text-xs">Kisse baat karwaogi? Choose one:</p>
+            
+            <p id="error2" class="text-xs text-rose-400 font-mono hidden">⚠️ Pehle ek dost select karna hoga!</p>
+
+            <div class="flex flex-col gap-2.5 pt-1">
+                <button onclick="selectFriend('Noor', 'https://www.instagram.com/nooorslens')" id="friendNoor" class="w-full py-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-semibold transition border border-slate-600 flex items-center justify-center gap-2">
+                    <i class="fa-brands fa-instagram text-pink-400"></i> Noor
+                </button>
+                <button onclick="selectFriend('Zoya', 'https://www.instagram.com/thezoya.archives')" id="friendZoya" class="w-full py-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-semibold transition border border-slate-600 flex items-center justify-center gap-2">
+                    <i class="fa-brands fa-instagram text-pink-400"></i> Zoya
+                </button>
+                <!-- Kisi se nahi button jo screen par bhagega -->
+                <button id="noOneBtn" onmouseover="dodgeNoOne()" ontouchstart="dodgeNoOne()" onclick="selectFriend('Kisi se nahi', '')" class="w-full py-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold transition border border-slate-600 relative">
+                    Kisi se nahi 🏃‍♂️💨
+                </button>
             </div>
+            <button onclick="validateStep2()" class="w-full mt-2 py-3 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-bold transition shadow-lg">Confirm Friend & Continue ➔</button>
         </div>
 
         <!-- STEP 3: Indian Menu Selection -->
-        <div id="step3" class="space-y-6 hidden">
+        <div id="step3" class="space-y-5 hidden">
             <div class="w-14 h-14 mx-auto rounded-full bg-amber-500/20 border border-amber-500/40 flex items-center justify-center text-amber-400 text-2xl">
                 <i class="fa-solid fa-bowl-food"></i>
             </div>
-            <h2 class="text-2xl font-extrabold text-white">Menu select karo, kya khaogi?</h2>
-            <div class="grid grid-cols-2 gap-3 text-left max-h-48 overflow-y-auto pr-1">
-                <label class="glass p-3 rounded-xl border border-slate-700 flex items-center gap-2 cursor-pointer hover:border-amber-500 transition">
+            <h2 class="text-xl font-extrabold text-white">Batao kya khaogi? (Indian Menu)</h2>
+            <div class="grid grid-cols-2 gap-2.5 text-left max-h-44 overflow-y-auto pr-1">
+                <label class="glass p-2.5 rounded-xl border border-slate-700 flex items-center gap-2 cursor-pointer hover:border-amber-500 transition">
                     <input type="radio" name="menu" value="Butter Chicken & Naan" class="accent-amber-500">
                     <span class="text-xs font-semibold">Butter Chicken</span>
                 </label>
-                <label class="glass p-3 rounded-xl border border-slate-700 flex items-center gap-2 cursor-pointer hover:border-amber-500 transition">
+                <label class="glass p-2.5 rounded-xl border border-slate-700 flex items-center gap-2 cursor-pointer hover:border-amber-500 transition">
                     <input type="radio" name="menu" value="Paneer Tikka Masala" class="accent-amber-500">
                     <span class="text-xs font-semibold">Paneer Tikka</span>
                 </label>
-                <label class="glass p-3 rounded-xl border border-slate-700 flex items-center gap-2 cursor-pointer hover:border-amber-500 transition">
+                <label class="glass p-2.5 rounded-xl border border-slate-700 flex items-center gap-2 cursor-pointer hover:border-amber-500 transition">
                     <input type="radio" name="menu" value="Hyderabadi Biryani" class="accent-amber-500">
                     <span class="text-xs font-semibold">Biryani</span>
                 </label>
-                <label class="glass p-3 rounded-xl border border-slate-700 flex items-center gap-2 cursor-pointer hover:border-amber-500 transition">
+                <label class="glass p-2.5 rounded-xl border border-slate-700 flex items-center gap-2 cursor-pointer hover:border-amber-500 transition">
                     <input type="radio" name="menu" value="Dal Makhani & Jeera Rice" class="accent-amber-500">
                     <span class="text-xs font-semibold">Dal Makhani</span>
                 </label>
@@ -75,42 +90,76 @@
                 <i class="fa-solid fa-check"></i>
             </div>
             <h2 class="text-2xl font-extrabold text-white">Confirmed! 🎉</h2>
-            <p id="finalChoiceText" class="text-slate-300 text-base font-medium"></p>
+            <p id="finalChoiceText" class="text-slate-300 text-sm font-medium leading-relaxed"></p>
             <p class="text-xs text-slate-400">Date fix ho gayi hai!</p>
         </div>
 
     </div>
 
     <script>
-        function nextStep(stepNum) {
-            document.querySelectorAll('#step1, #step2, #step3, #step4').forEach(el => el.classList.add('hidden'));
-            document.getElementById('step' + stepNum).classList.remove('hidden');
+        let chosen1 = "";
+        let chosenFriend = "";
+        let friendInsta = "";
+
+        function selectOption(step, val) {
+            chosen1 = val;
+            document.getElementById('error1').classList.add('hidden');
+            if(step === 1) {
+                document.getElementById('btnHaan').style.borderColor = val === 'Haan' ? '#ec4899' : '#475569';
+                document.getElementById('btnNhi').style.borderColor = val === 'Nhi' ? '#ec4899' : '#475569';
+            }
         }
 
-        // 'Nhi' button ko dodge karne ke liye (Step 1)
-        function dodgeButton() {
-            const btn = document.getElementById('noBtn');
-            const randomX = Math.floor(Math.random() * 120) - 60;
+        function validateStep1() {
+            if(!chosen1) {
+                document.getElementById('error1').classList.remove('hidden');
+                return;
+            }
+            document.getElementById('step1').classList.add('hidden');
+            document.getElementById('step2').classList.remove('hidden');
+        }
+
+        function selectFriend(name, instaUrl) {
+            chosenFriend = name;
+            friendInsta = instaUrl;
+            document.getElementById('error2').classList.add('hidden');
+            
+            document.getElementById('friendNoor').style.borderColor = name === 'Noor' ? '#a855f7' : '#475569';
+            document.getElementById('friendZoya').style.borderColor = name === 'Zoya' ? '#a855f7' : '#475569';
+            document.getElementById('noOneBtn').style.borderColor = name === 'Kisi se nahi' ? '#a855f7' : '#475569';
+
+            if(name === 'Noor' || name === 'Zoya') {
+                alert(`⚠️ Warning: Khane ke baad palat mat, wrna bill tumko dena pdega! 😉`);
+                window.open(instaUrl, '_blank');
+            }
+        }
+
+        function validateStep2() {
+            if(!chosenFriend) {
+                document.getElementById('error2').classList.remove('hidden');
+                return;
+            }
+            document.getElementById('step2').classList.add('hidden');
+            document.getElementById('step3').classList.remove('hidden');
+        }
+
+        function dodgeNoOne() {
+            const btn = document.getElementById('noOneBtn');
+            const randomX = Math.floor(Math.random() * 140) - 70;
             const randomY = Math.floor(Math.random() * 80) - 40;
             btn.style.transform = `translate(${randomX}px, ${randomY}px)`;
         }
 
-        // 'Zoya' button ko upar-neeche bhagane ke liye (Step 2)
-        function dodgeZoya() {
-            const btn = document.getElementById('zoyaBtn');
-            const currentTop = btn.style.top === '0px' ? '70px' : '0px';
-            btn.style.top = currentTop;
-        }
-
-        // Final menu selection
         function finalizeOrder() {
             const selected = document.querySelector('input[name="menu"]:checked');
             if(!selected) {
-                alert('Pehle koi ek dish toh select karo!');
+                alert('Pehle koi ek Indian dish toh select karo!');
                 return;
             }
-            document.getElementById('finalChoiceText').innerText = `Tumne select kiya hai: "${selected.value}". Yeh final ho gaya!`;
-            nextStep(4);
+            document.getElementById('finalChoiceText').innerHTML = `Dost selected: <b>${chosenFriend}</b><br>Tumne khane me select kiya hai: <b>"${selected.value}"</b>.<br><span class="text-yellow-400 text-xs">Yaad rakhna, bill ki baat pehle hi ho chuki hai! 😉</span>`;
+            
+            document.getElementById('step3').classList.add('hidden');
+            document.getElementById('step4').classList.remove('hidden');
         }
     </script>
 </body>
