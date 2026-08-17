@@ -16,12 +16,12 @@
 
     <div class="w-full max-w-md glass border border-slate-700/80 rounded-3xl p-6 sm:p-8 shadow-2xl text-center relative overflow-hidden min-h-[460px] flex flex-col justify-center">
 
-        <!-- STEP 1: Gulhasmi didi message -->
+        <!-- STEP 1 -->
         <div id="step1" class="space-y-5">
             <div class="w-16 h-16 mx-auto rounded-full bg-pink-500/20 border border-pink-500/40 flex items-center justify-center text-pink-400 text-2xl">
                 <i class="fa-solid fa-utensils"></i>
             </div>
-            <h2 class="text-xl font-extrabold text-white">Gulhasmi didi agr khana hai to jo dil kre to form filup kro</h2>
+            <h2 class="text-xl font-extrabold text-white">Gulhasmi didi agr khana order krwana hai to form fill krna pdega.</h2>
             <p class="text-slate-300 text-base">Kya tum mere sath dinner khane chalogi?</p>
             
             <p class="text-xs text-yellow-400 font-medium bg-yellow-500/10 py-1.5 px-3 rounded-lg border border-yellow-500/20">ℹ️ Pehle aapko ek option select karna zaroori hai!</p>
@@ -34,7 +34,7 @@
             <button onclick="validateStep1()" class="w-full mt-2 py-3 rounded-xl bg-pink-600 hover:bg-pink-500 text-white font-bold transition shadow-lg shadow-pink-600/30">Aage Badhein ➔</button>
         </div>
 
-        <!-- STEP 2: Dost se baat krwao (Noor, Zoya & Dodging 'Kisi se nahi') -->
+        <!-- STEP 2 -->
         <div id="step2" class="space-y-4 hidden">
             <div class="w-16 h-16 mx-auto rounded-full bg-purple-500/20 border border-purple-500/40 flex items-center justify-center text-purple-400 text-2xl">
                 <i class="fa-solid fa-user-group"></i>
@@ -44,18 +44,18 @@
             <p class="text-xs text-yellow-400 font-medium bg-yellow-500/10 py-1.5 px-3 rounded-lg border border-yellow-500/20">ℹ️ Noor ya Zoya me se ek ko chunna compulsory hai!</p>
             <p id="error2" class="text-xs text-rose-400 font-mono hidden">⚠️ Pehle Noor ya Zoya select karo!</p>
 
-            <div class="grid grid-cols-2 gap-3 pt-2">
-                <!-- Noor Option with Larger Photo -->
-                <button onclick="selectFriend('Noor')" id="friendNoor" class="glass p-3 rounded-2xl border border-slate-700 flex flex-col items-center gap-2 cursor-pointer hover:border-purple-500 transition">
-                    <div class="w-24 h-24 rounded-full overflow-hidden border-2 border-purple-400/60 bg-slate-900 shadow-md">
+            <div class="grid grid-cols-2 gap-3 pt-2 justify-items-center">
+                <!-- Noor Option with Indian Passport Size Ratio (3.5:4.5 approx -> w-20 h-28) -->
+                <button onclick="selectFriend('Noor')" id="friendNoor" class="glass p-3 rounded-2xl border border-slate-700 flex flex-col items-center gap-2 cursor-pointer hover:border-purple-500 transition w-full">
+                    <div class="w-20 h-28 rounded-lg overflow-hidden border-2 border-purple-400/60 bg-slate-900 shadow-md">
                         <img src="noor.jpg" alt="Noor" class="w-full h-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=200'">
                     </div>
                     <span class="text-xs font-bold text-white">Noor</span>
                 </button>
 
-                <!-- Zoya Option with Larger Photo -->
-                <button onclick="selectFriend('Zoya')" id="friendZoya" class="glass p-3 rounded-2xl border border-slate-700 flex flex-col items-center gap-2 cursor-pointer hover:border-purple-500 transition">
-                    <div class="w-24 h-24 rounded-full overflow-hidden border-2 border-purple-400/60 bg-slate-900 shadow-md">
+                <!-- Zoya Option with Indian Passport Size Ratio (3.5:4.5 approx -> w-20 h-28) -->
+                <button onclick="selectFriend('Zoya')" id="friendZoya" class="glass p-3 rounded-2xl border border-slate-700 flex flex-col items-center gap-2 cursor-pointer hover:border-purple-500 transition w-full">
+                    <div class="w-20 h-28 rounded-lg overflow-hidden border-2 border-purple-400/60 bg-slate-900 shadow-md">
                         <img src="zoya.jpg" alt="Zoya" class="w-full h-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&q=80&w=200'">
                     </div>
                     <span class="text-xs font-bold text-white">Zoya</span>
@@ -72,7 +72,7 @@
             <button onclick="validateStep2()" class="w-full mt-3 py-3 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-bold transition shadow-lg">Confirm Friend & Continue ➔</button>
         </div>
 
-        <!-- STEP 3: Indian Menu Selection -->
+        <!-- STEP 3 -->
         <div id="step3" class="space-y-4 hidden">
             <div class="w-14 h-14 mx-auto rounded-full bg-amber-500/20 border border-amber-500/40 flex items-center justify-center text-amber-400 text-2xl">
                 <i class="fa-solid fa-bowl-food"></i>
@@ -101,7 +101,7 @@
             <button onclick="finalizeOrder()" class="w-full py-3 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold transition shadow-lg">Finalize Order 🍽️</button>
         </div>
 
-        <!-- STEP 4: Success / Finalized Screen -->
+        <!-- STEP 4 -->
         <div id="step4" class="space-y-6 hidden">
             <div class="w-16 h-16 mx-auto rounded-full bg-green-500/20 border border-green-500/40 flex items-center justify-center text-green-400 text-3xl">
                 <i class="fa-solid fa-check"></i>
