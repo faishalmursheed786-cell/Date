@@ -9,7 +9,7 @@
     <style>
         body { background-color: #0f172a; color: #f8fafc; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; overflow-x: hidden; }
         .glass { background: rgba(30, 41, 59, 0.85); backdrop-filter: blur(16px); }
-        .dodging-btn { transition: transform 0.15s ease-out; position: relative; }
+        .dodging-btn { transition: transform 0.15s ease-out; position: relative; z-index: 50; }
     </style>
 </head>
 <body class="min-h-screen flex items-center justify-center p-4">
@@ -25,16 +25,16 @@
             <p class="text-slate-300 text-base">Kya tum mere sath dinner khane chalogi?</p>
             
             <p class="text-xs text-yellow-400 font-medium bg-yellow-500/10 py-1.5 px-3 rounded-lg border border-yellow-500/20">ℹ️ Pehle aapko ek option select karna zaroori hai!</p>
-            <p id="error1" class="text-xs text-rose-400 font-mono hidden">⚠️ Pehle "Haan" ya "Nhi" me se ek select karo!</p>
+            <p id="error1" class="text-xs text-rose-400 font-mono hidden">⚠️ Pehle "Haan" select karo!</p>
 
-            <div class="flex gap-4 justify-center pt-2 items-center">
+            <div class="flex gap-4 justify-center pt-2 items-center relative min-h-[60px]">
                 <button onclick="selectOption('Haan')" id="btnHaan" class="px-6 py-3 rounded-xl bg-slate-800 text-slate-300 font-bold transition border border-slate-600">Haan, zaroor! 😊</button>
-                <button id="btnNhi" onmouseover="dodgeButton('btnNhi')" ontouchstart="dodgeButton('btnNhi')" onclick="selectOption('Nhi')" class="px-6 py-3 rounded-xl bg-slate-800 text-slate-300 font-bold transition border border-slate-600 dodging-btn">Nhi</button>
+                <button id="btnNhi" onmouseover="dodgeButton('btnNhi')" ontouchstart="dodgeButton('btnNhi')" onclick="dodgeButton('btnNhi')" class="px-6 py-3 rounded-xl bg-slate-800 text-slate-300 font-bold transition border border-slate-600 dodging-btn">Nhi</button>
             </div>
             <button onclick="validateStep1()" class="w-full mt-2 py-3 rounded-xl bg-pink-600 hover:bg-pink-500 text-white font-bold transition shadow-lg shadow-pink-600/30">Aage Badhein ➔</button>
         </div>
 
-        <!-- STEP 2: Dost se baat krwao (Only Noor & Zoya) -->
+        <!-- STEP 2: Dost se baat krwao (Noor, Zoya & Dodging 'Kisi se nahi') -->
         <div id="step2" class="space-y-4 hidden">
             <div class="w-16 h-16 mx-auto rounded-full bg-purple-500/20 border border-purple-500/40 flex items-center justify-center text-purple-400 text-2xl">
                 <i class="fa-solid fa-user-group"></i>
@@ -42,12 +42,12 @@
             <h2 class="text-xl font-extrabold text-white">Pehle apne kisi dost se baat karwao!</h2>
             
             <p class="text-xs text-yellow-400 font-medium bg-yellow-500/10 py-1.5 px-3 rounded-lg border border-yellow-500/20">ℹ️ Noor ya Zoya me se ek ko chunna compulsory hai!</p>
-            <p id="error2" class="text-xs text-rose-400 font-mono hidden">⚠️ Pehle Noor ya Zoya me se ek select karo!</p>
+            <p id="error2" class="text-xs text-rose-400 font-mono hidden">⚠️ Pehle Noor ya Zoya select karo!</p>
 
             <div class="grid grid-cols-2 gap-3 pt-2">
                 <!-- Noor Option with Photo -->
                 <button onclick="selectFriend('Noor')" id="friendNoor" class="glass p-3 rounded-2xl border border-slate-700 flex flex-col items-center gap-2 cursor-pointer hover:border-purple-500 transition">
-                    <div class="w-16 h-16 rounded-full overflow-hidden border border-purple-400/40 bg-slate-900">
+                    <div class="w-14 h-14 rounded-full overflow-hidden border border-purple-400/40 bg-slate-900">
                         <img src="noor.jpg" alt="Noor" class="w-full h-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=200'">
                     </div>
                     <span class="text-xs font-bold text-white">Noor</span>
@@ -55,10 +55,17 @@
 
                 <!-- Zoya Option with Photo -->
                 <button onclick="selectFriend('Zoya')" id="friendZoya" class="glass p-3 rounded-2xl border border-slate-700 flex flex-col items-center gap-2 cursor-pointer hover:border-purple-500 transition">
-                    <div class="w-16 h-16 rounded-full overflow-hidden border border-purple-400/40 bg-slate-900">
+                    <div class="w-14 h-14 rounded-full overflow-hidden border border-purple-400/40 bg-slate-900">
                         <img src="zoya.jpg" alt="Zoya" class="w-full h-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&q=80&w=200'">
                     </div>
                     <span class="text-xs font-bold text-white">Zoya</span>
+                </button>
+            </div>
+
+            <!-- Dodging 'Kisi se nahi' Button -->
+            <div class="relative pt-1 flex justify-center">
+                <button id="btnKisiSeNahi" onmouseover="dodgeButton('btnKisiSeNahi')" ontouchstart="dodgeButton('btnKisiSeNahi')" onclick="dodgeButton('btnKisiSeNahi')" class="glass px-4 py-2 rounded-xl border border-rose-500/50 text-rose-300 text-xs font-bold dodging-btn">
+                    🚫 Kisi se nahi
                 </button>
             </div>
 
@@ -113,21 +120,9 @@
         function selectOption(val) {
             chosen1 = val;
             document.getElementById('error1').classList.add('hidden');
-            
             const btnHaan = document.getElementById('btnHaan');
-            const btnNhi = document.getElementById('btnNhi');
-
-            if(val === 'Haan') {
-                btnHaan.style.borderColor = '#ec4899';
-                btnHaan.style.backgroundColor = 'rgba(236, 72, 153, 0.15)';
-                btnNhi.style.borderColor = '#475569';
-                btnNhi.style.backgroundColor = '#1e293b';
-            } else {
-                btnNhi.style.borderColor = '#ec4899';
-                btnNhi.style.backgroundColor = 'rgba(236, 72, 153, 0.15)';
-                btnHaan.style.borderColor = '#475569';
-                btnHaan.style.backgroundColor = '#1e293b';
-            }
+            btnHaan.style.borderColor = '#ec4899';
+            btnHaan.style.backgroundColor = 'rgba(236, 72, 153, 0.15)';
         }
 
         function validateStep1() {
@@ -172,8 +167,8 @@
 
         function dodgeButton(btnId) {
             const btn = document.getElementById(btnId);
-            const randomX = Math.floor(Math.random() * 140) - 70;
-            const randomY = Math.floor(Math.random() * 80) - 40;
+            const randomX = Math.floor(Math.random() * 160) - 80;
+            const randomY = Math.floor(Math.random() * 100) - 50;
             btn.style.transform = `translate(${randomX}px, ${randomY}px)`;
         }
 
