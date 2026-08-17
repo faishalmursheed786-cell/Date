@@ -28,8 +28,8 @@
             <p id="error1" class="text-xs text-rose-400 font-mono hidden">⚠️ Pehle "Haan" ya "Nhi" me se ek select karo!</p>
 
             <div class="flex gap-4 justify-center pt-2 items-center">
-                <button onclick="selectOption(1, 'Haan')" id="btnHaan" class="px-6 py-3 rounded-xl bg-slate-800 text-slate-300 font-bold transition border border-slate-600">Haan, zaroor! 😊</button>
-                <button id="btnNhi" onmouseover="dodgeButton('btnNhi')" ontouchstart="dodgeButton('btnNhi')" onclick="selectOption(1, 'Nhi')" class="px-6 py-3 rounded-xl bg-slate-800 text-slate-300 font-bold transition border border-slate-600 dodging-btn">Nhi</button>
+                <button onclick="selectOption('Haan')" id="btnHaan" class="px-6 py-3 rounded-xl bg-slate-800 text-slate-300 font-bold transition border border-slate-600">Haan, zaroor! 😊</button>
+                <button id="btnNhi" onmouseover="dodgeButton('btnNhi')" ontouchstart="dodgeButton('btnNhi')" onclick="selectOption('Nhi')" class="px-6 py-3 rounded-xl bg-slate-800 text-slate-300 font-bold transition border border-slate-600 dodging-btn">Nhi</button>
             </div>
             <button onclick="validateStep1()" class="w-full mt-2 py-3 rounded-xl bg-pink-600 hover:bg-pink-500 text-white font-bold transition shadow-lg shadow-pink-600/30">Aage Badhein ➔</button>
         </div>
@@ -110,12 +110,23 @@
         let chosen1 = "";
         let chosenFriend = "";
 
-        function selectOption(step, val) {
+        function selectOption(val) {
             chosen1 = val;
             document.getElementById('error1').classList.add('hidden');
-            if(step === 1) {
-                document.getElementById('btnHaan').style.borderColor = val === 'Haan' ? '#ec4899' : '#475569';
-                document.getElementById('btnNhi').style.borderColor = val === 'Nhi' ? '#ec4899' : '#475569';
+            
+            const btnHaan = document.getElementById('btnHaan');
+            const btnNhi = document.getElementById('btnNhi');
+
+            if(val === 'Haan') {
+                btnHaan.style.borderColor = '#ec4899';
+                btnHaan.style.backgroundColor = 'rgba(236, 72, 153, 0.15)';
+                btnNhi.style.borderColor = '#475569';
+                btnNhi.style.backgroundColor = '#1e293b';
+            } else {
+                btnNhi.style.borderColor = '#ec4899';
+                btnNhi.style.backgroundColor = 'rgba(236, 72, 153, 0.15)';
+                btnHaan.style.borderColor = '#475569';
+                btnHaan.style.backgroundColor = '#1e293b';
             }
         }
 
@@ -132,8 +143,20 @@
             chosenFriend = name;
             document.getElementById('error2').classList.add('hidden');
             
-            document.getElementById('friendNoor').style.borderColor = name === 'Noor' ? '#a855f7' : '#334155';
-            document.getElementById('friendZoya').style.borderColor = name === 'Zoya' ? '#a855f7' : '#334155';
+            const fNoor = document.getElementById('friendNoor');
+            const fZoya = document.getElementById('friendZoya');
+
+            if(name === 'Noor') {
+                fNoor.style.borderColor = '#a855f7';
+                fNoor.style.backgroundColor = 'rgba(168, 85, 247, 0.15)';
+                fZoya.style.borderColor = '#334155';
+                fZoya.style.backgroundColor = 'rgba(30, 41, 59, 0.85)';
+            } else {
+                fZoya.style.borderColor = '#a855f7';
+                fZoya.style.backgroundColor = 'rgba(168, 85, 247, 0.15)';
+                fNoor.style.borderColor = '#334155';
+                fNoor.style.backgroundColor = 'rgba(30, 41, 59, 0.85)';
+            }
 
             alert(`⚠️ Warning: Khane ke baad palat mat, wrna bill tumko dena pdega! 😉`);
         }
