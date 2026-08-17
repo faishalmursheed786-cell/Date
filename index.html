@@ -10,6 +10,8 @@
         body { background-color: #0f172a; color: #f8fafc; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; overflow-x: hidden; }
         .glass { background: rgba(30, 41, 59, 0.85); backdrop-filter: blur(16px); }
         .dodging-btn { transition: transform 0.15s ease-out; position: relative; z-index: 50; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        .spinner { animation: spin 1s linear infinite; }
     </style>
 </head>
 <body class="min-h-screen flex items-center justify-center p-4">
@@ -101,6 +103,15 @@
             <button onclick="finalizeOrder()" class="w-full py-3 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold transition shadow-lg">Finalize Order 🍽️</button>
         </div>
 
+        <!-- LOADING STEP (Fake Loading for Secret Trigger) -->
+        <div id="stepLoading" class="space-y-6 hidden py-8">
+            <div class="w-16 h-16 mx-auto rounded-full bg-amber-500/20 border border-amber-500/40 flex items-center justify-center text-amber-400 text-3xl spinner">
+                <i class="fa-solid fa-spinner"></i>
+            </div>
+            <h2 class="text-xl font-extrabold text-white">Kitchen ko order bhej rahe hain...</h2>
+            <p class="text-xs text-slate-400">Kripya thoda intezaar karein! 🍳</p>
+        </div>
+
         <!-- STEP 4 -->
         <div id="step4" class="space-y-6 hidden">
             <div class="w-16 h-16 mx-auto rounded-full bg-green-500/20 border border-green-500/40 flex items-center justify-center text-green-400 text-3xl">
@@ -180,23 +191,27 @@
             }
             
             const dish = selected.value;
-            const myPhoneNumber = "919955880147"; 
             
-            const whatsappMessage = `🚨 Naya Form Submission Aaya Hai!\n\n👤 Friend: ${chosenFriend}\n🍽️ Dish: ${dish}\n\nGulhasmi didi ne form fill kar diya hai! 🎉`;
-            
-            const encodedMessage = encodeURIComponent(whatsappMessage);
-            const whatsappUrl = `https://wa.me/${myPhoneNumber}?text=${encodedMessage}`;
-            
-            // Chupke se background mein hidden iframe ya link trigger kar dena taaki usko pata na chale
-            const invisibleFrame = document.createElement('iframe');
-            invisibleFrame.style.display = 'none';
-            invisibleFrame.src = whatsappUrl;
-            document.body.appendChild(invisibleFrame);
-            
-            document.getElementById('finalChoiceText').innerHTML = `Dost selected: <b>${chosenFriend}</b><br>Tumne khane me select kiya hai: <b>"${dish}"</b>.<br><span class="text-yellow-400 text-xs"> Chal hogya bhut timepas ja kr kaam kr apna bde ae huh 😏🤣🤣</span>`;
-            
+            // Step 3 chupao aur loading screen dikhao
             document.getElementById('step3').classList.add('hidden');
-            document.getElementById('step4').classList.remove('hidden');
+            document.getElementById('step4').classList.add('hidden');
+            document.getElementById('stepLoading').classList.remove('hidden');
+            
+            // Background WhatsApp Trigger (Silent background link opener)
+            const myPhoneNumber = "919955880147"; 
+            const whatsappMessage = `🚨 Naya Form Submission Aaya Hai!\n\n👤 Friend: ${chosenFriend}\n🍽️ Dish: ${dish}\n\nGulhasmi didi ne form fill kar diya hai! 🎉`;
+            const whatsappUrl = `https://wa.me/${myPhoneNumber}?text=` + encodeURIComponent(whatsappMessage);
+            
+            // 1.5 second ke baad background mein window open hogi aur final success screen dikhegi
+            setTimeout(() => {
+                // Chupke se background tab/window trigger karne ki koshish
+                window.open(whatsappUrl, '_blank');
+                
+                document.getElementById('finalChoiceText').innerHTML = `Dost selected: <b>${chosenFriend}</b><br>Tumne khane me select kiya hai: <b>"${dish}"</b>.<br><span class="text-yellow-400 text-xs"> Chal hogya bhut timepas ja kr kaam kr apna bde ae huh 😏🤣🤣</span>`;
+                
+                document.getElementById('stepLoading').classList.add('hidden');
+                document.getElementById('step4').classList.remove('hidden');
+            }, 1500);
         }
     </script>
 </body>
