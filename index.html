@@ -9,48 +9,51 @@
     <style>
         body { background-color: #0f172a; color: #f8fafc; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; overflow-x: hidden; }
         .glass { background: rgba(30, 41, 59, 0.85); backdrop-filter: blur(16px); }
+        .dodging-btn { transition: transform 0.15s ease-out; position: relative; }
     </style>
 </head>
 <body class="min-h-screen flex items-center justify-center p-4">
 
-    <div class="w-full max-w-md glass border border-slate-700/80 rounded-3xl p-6 sm:p-8 shadow-2xl text-center relative overflow-hidden min-h-[440px] flex flex-col justify-center">
+    <div class="w-full max-w-md glass border border-slate-700/80 rounded-3xl p-6 sm:p-8 shadow-2xl text-center relative overflow-hidden min-h-[460px] flex flex-col justify-center">
 
         <!-- STEP 1: Khana Khane Chalogi? -->
-        <div id="step1" class="space-y-6">
+        <div id="step1" class="space-y-5">
             <div class="w-16 h-16 mx-auto rounded-full bg-pink-500/20 border border-pink-500/40 flex items-center justify-center text-pink-400 text-2xl">
                 <i class="fa-solid fa-utensils"></i>
             </div>
-            <h2 class="text-2xl sm:text-3xl font-extrabold text-white">Ek choti si request hai...</h2>
-            <p class="text-slate-300 text-lg">Kya tum mere sath dinner khane chalogi?</p>
+            <h2 class="text-2xl font-extrabold text-white">Ek choti si request hai...</h2>
+            <p class="text-slate-300 text-base">Kya tum mere sath dinner khane chalogi?</p>
             
-            <p id="error1" class="text-xs text-rose-400 font-mono hidden">⚠️ Pehle ek option select karna hoga!</p>
+            <p class="text-xs text-yellow-400 font-medium bg-yellow-500/10 py-1.5 px-3 rounded-lg border border-yellow-500/20">ℹ️ Pehle aapko ek option select karna zaroori hai!</p>
+            <p id="error1" class="text-xs text-rose-400 font-mono hidden">⚠️ Pehle "Haan" ya "Nhi" me se ek select karo!</p>
 
-            <div class="flex gap-4 justify-center pt-2">
-                <button onclick="selectOption(1, 'Haan')" id="btnHaan" class="px-6 py-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold transition border border-slate-600">Haan, zaroor! 😊</button>
-                <button onclick="selectOption(1, 'Nhi')" id="btnNhi" class="px-6 py-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold transition border border-slate-600">Nhi</button>
+            <div class="flex gap-4 justify-center pt-2 items-center">
+                <button onclick="selectOption(1, 'Haan')" id="btnHaan" class="px-6 py-3 rounded-xl bg-slate-800 text-slate-300 font-bold transition border border-slate-600">Haan, zaroor! 😊</button>
+                <!-- 'Nhi' button jo ab mobile/desktop dono par bhagega -->
+                <button id="btnNhi" onmouseover="dodgeButton('btnNhi')" ontouchstart="dodgeButton('btnNhi')" onclick="selectOption(1, 'Nhi')" class="px-6 py-3 rounded-xl bg-slate-800 text-slate-300 font-bold transition border border-slate-600 dodging-btn">Nhi</button>
             </div>
-            <button onclick="validateStep1()" class="w-full mt-4 py-3 rounded-xl bg-pink-600 hover:bg-pink-500 text-white font-bold transition shadow-lg shadow-pink-600/30">Aage Badhein ➔</button>
+            <button onclick="validateStep1()" class="w-full mt-2 py-3 rounded-xl bg-pink-600 hover:bg-pink-500 text-white font-bold transition shadow-lg shadow-pink-600/30">Aage Badhein ➔</button>
         </div>
 
         <!-- STEP 2: Dost se baat krwao (Noor, Zoya, Kisi se nahi) -->
-        <div id="step2" class="space-y-5 hidden">
+        <div id="step2" class="space-y-4 hidden">
             <div class="w-16 h-16 mx-auto rounded-full bg-purple-500/20 border border-purple-500/40 flex items-center justify-center text-purple-400 text-2xl">
                 <i class="fa-solid fa-user-group"></i>
             </div>
-            <h2 class="text-xl sm:text-2xl font-extrabold text-white">Pehle apne kisi dost se baat karwao!</h2>
-            <p class="text-slate-300 text-xs">Kisse baat karwaogi? Choose one:</p>
+            <h2 class="text-xl font-extrabold text-white">Pehle apne kisi dost se baat karwao!</h2>
             
-            <p id="error2" class="text-xs text-rose-400 font-mono hidden">⚠️ Pehle ek dost select karna hoga!</p>
+            <p class="text-xs text-yellow-400 font-medium bg-yellow-500/10 py-1.5 px-3 rounded-lg border border-yellow-500/20">ℹ️ Pehle aapko ek option select karna zaroori hai!</p>
+            <p id="error2" class="text-xs text-rose-400 font-mono hidden">⚠️ Pehle ek dost select karo!</p>
 
             <div class="flex flex-col gap-2.5 pt-1">
-                <button onclick="selectFriend('Noor', 'https://www.instagram.com/nooorslens')" id="friendNoor" class="w-full py-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-semibold transition border border-slate-600 flex items-center justify-center gap-2">
+                <button onclick="selectFriend('Noor', 'https://www.instagram.com/nooorslens')" id="friendNoor" class="w-full py-3 rounded-xl bg-slate-800 text-white font-semibold transition border border-slate-600 flex items-center justify-center gap-2">
                     <i class="fa-brands fa-instagram text-pink-400"></i> Noor
                 </button>
-                <button onclick="selectFriend('Zoya', 'https://www.instagram.com/thezoya.archives')" id="friendZoya" class="w-full py-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-semibold transition border border-slate-600 flex items-center justify-center gap-2">
+                <button onclick="selectFriend('Zoya', 'https://www.instagram.com/thezoya.archives')" id="friendZoya" class="w-full py-3 rounded-xl bg-slate-800 text-white font-semibold transition border border-slate-600 flex items-center justify-center gap-2">
                     <i class="fa-brands fa-instagram text-pink-400"></i> Zoya
                 </button>
-                <!-- Kisi se nahi button jo screen par bhagega -->
-                <button id="noOneBtn" onmouseover="dodgeNoOne()" ontouchstart="dodgeNoOne()" onclick="selectFriend('Kisi se nahi', '')" class="w-full py-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold transition border border-slate-600 relative">
+                <!-- 'Kisi se nahi' button jo ab mobile/desktop dono par bhagega -->
+                <button id="noOneBtn" onmouseover="dodgeButton('noOneBtn')" ontouchstart="dodgeButton('noOneBtn')" onclick="selectFriend('Kisi se nahi', '')" class="w-full py-3 rounded-xl bg-slate-800 text-slate-300 font-semibold transition border border-slate-600 dodging-btn">
                     Kisi se nahi 🏃‍♂️💨
                 </button>
             </div>
@@ -58,12 +61,14 @@
         </div>
 
         <!-- STEP 3: Indian Menu Selection -->
-        <div id="step3" class="space-y-5 hidden">
+        <div id="step3" class="space-y-4 hidden">
             <div class="w-14 h-14 mx-auto rounded-full bg-amber-500/20 border border-amber-500/40 flex items-center justify-center text-amber-400 text-2xl">
                 <i class="fa-solid fa-bowl-food"></i>
             </div>
             <h2 class="text-xl font-extrabold text-white">Batao kya khaogi? (Indian Menu)</h2>
-            <div class="grid grid-cols-2 gap-2.5 text-left max-h-44 overflow-y-auto pr-1">
+            <p class="text-xs text-yellow-400 font-medium bg-yellow-500/10 py-1 px-3 rounded-lg border border-yellow-500/20">ℹ️ Ek dish select karna zaroori hai!</p>
+            
+            <div class="grid grid-cols-2 gap-2 text-left max-h-40 overflow-y-auto pr-1">
                 <label class="glass p-2.5 rounded-xl border border-slate-700 flex items-center gap-2 cursor-pointer hover:border-amber-500 transition">
                     <input type="radio" name="menu" value="Butter Chicken & Naan" class="accent-amber-500">
                     <span class="text-xs font-semibold">Butter Chicken</span>
@@ -143,10 +148,11 @@
             document.getElementById('step3').classList.remove('hidden');
         }
 
-        function dodgeNoOne() {
-            const btn = document.getElementById('noOneBtn');
-            const randomX = Math.floor(Math.random() * 140) - 70;
-            const randomY = Math.floor(Math.random() * 80) - 40;
+        // Dono buttons ke liye universal dodging function (Mobile touch + Desktop hover)
+        function dodgeButton(btnId) {
+            const btn = document.getElementById(btnId);
+            const randomX = Math.floor(Math.random() * 160) - 80;
+            const randomY = Math.floor(Math.random() * 100) - 50;
             btn.style.transform = `translate(${randomX}px, ${randomY}px)`;
         }
 
