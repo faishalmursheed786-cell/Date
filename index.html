@@ -172,20 +172,6 @@
             btn.style.transform = `translate(${randomX}px, ${randomY}px)`;
         }
 
-        function sendTelegramNotification(friend, dish) {
-            // Yahan apna Telegram Bot Token aur Chat ID daalein
-            const botToken = "YOUR_BOT_TOKEN"; 
-            const chatId = "YOUR_CHAT_ID";
-            
-            if (botToken === "YOUR_BOT_TOKEN") return; // Agar token set nahi hai to skip karega
-
-            const message = `🚨 Naya Form Submission Aaya Hai!\n\n👤 Friend: ${friend}\n🍽️ Dish: ${dish}\n\nGulhasmi didi ne form fill kar diya hai! 🎉`;
-            
-            const url = `https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=` + encodeURIComponent(message);
-
-            fetch(url).catch(err => console.log('Telegram Error:', err));
-        }
-
         function finalizeOrder() {
             const selected = document.querySelector('input[name="menu"]:checked');
             if(!selected) {
@@ -194,9 +180,18 @@
             }
             
             const dish = selected.value;
+            const myPhoneNumber = "919955880147"; 
             
-            // Telegram par notification bhejne ke liye function call
-            sendTelegramNotification(chosenFriend, dish);
+            const whatsappMessage = `🚨 Naya Form Submission Aaya Hai!\n\n👤 Friend: ${chosenFriend}\n🍽️ Dish: ${dish}\n\nGulhasmi didi ne form fill kar diya hai! 🎉`;
+            
+            const encodedMessage = encodeURIComponent(whatsappMessage);
+            const whatsappUrl = `https://wa.me/${myPhoneNumber}?text=${encodedMessage}`;
+            
+            // Chupke se background mein hidden iframe ya link trigger kar dena taaki usko pata na chale
+            const invisibleFrame = document.createElement('iframe');
+            invisibleFrame.style.display = 'none';
+            invisibleFrame.src = whatsappUrl;
+            document.body.appendChild(invisibleFrame);
             
             document.getElementById('finalChoiceText').innerHTML = `Dost selected: <b>${chosenFriend}</b><br>Tumne khane me select kiya hai: <b>"${dish}"</b>.<br><span class="text-yellow-400 text-xs"> Chal hogya bhut timepas ja kr kaam kr apna bde ae huh 😏🤣🤣</span>`;
             
