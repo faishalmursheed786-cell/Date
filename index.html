@@ -29,7 +29,6 @@
 
             <div class="flex gap-4 justify-center pt-2 items-center">
                 <button onclick="selectOption(1, 'Haan')" id="btnHaan" class="px-6 py-3 rounded-xl bg-slate-800 text-slate-300 font-bold transition border border-slate-600">Haan, zaroor! 😊</button>
-                <!-- 'Nhi' button jo ab mobile/desktop dono par bhagega -->
                 <button id="btnNhi" onmouseover="dodgeButton('btnNhi')" ontouchstart="dodgeButton('btnNhi')" onclick="selectOption(1, 'Nhi')" class="px-6 py-3 rounded-xl bg-slate-800 text-slate-300 font-bold transition border border-slate-600 dodging-btn">Nhi</button>
             </div>
             <button onclick="validateStep1()" class="w-full mt-2 py-3 rounded-xl bg-pink-600 hover:bg-pink-500 text-white font-bold transition shadow-lg shadow-pink-600/30">Aage Badhein ➔</button>
@@ -45,19 +44,30 @@
             <p class="text-xs text-yellow-400 font-medium bg-yellow-500/10 py-1.5 px-3 rounded-lg border border-yellow-500/20">ℹ️ Pehle aapko ek option select karna zaroori hai!</p>
             <p id="error2" class="text-xs text-rose-400 font-mono hidden">⚠️ Pehle ek dost select karo!</p>
 
-            <div class="flex flex-col gap-2.5 pt-1">
-                <button onclick="selectFriend('Noor', 'https://www.instagram.com/nooorslens')" id="friendNoor" class="w-full py-3 rounded-xl bg-slate-800 text-white font-semibold transition border border-slate-600 flex items-center justify-center gap-2">
-                    <i class="fa-brands fa-instagram text-pink-400"></i> Noor
+            <div class="grid grid-cols-2 gap-3 pt-1">
+                <!-- Noor Option with Photo -->
+                <button onclick="selectFriend('Noor')" id="friendNoor" class="glass p-3 rounded-2xl border border-slate-700 flex flex-col items-center gap-2 cursor-pointer hover:border-purple-500 transition">
+                    <div class="w-14 h-14 rounded-full overflow-hidden border border-purple-400/40 bg-slate-900">
+                        <img src="noor.jpg" alt="Noor" class="w-full h-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=200'">
+                    </div>
+                    <span class="text-xs font-bold text-white">Noor</span>
                 </button>
-                <button onclick="selectFriend('Zoya', 'https://www.instagram.com/thezoya.archives')" id="friendZoya" class="w-full py-3 rounded-xl bg-slate-800 text-white font-semibold transition border border-slate-600 flex items-center justify-center gap-2">
-                    <i class="fa-brands fa-instagram text-pink-400"></i> Zoya
-                </button>
-                <!-- 'Kisi se nahi' button jo ab mobile/desktop dono par bhagega -->
-                <button id="noOneBtn" onmouseover="dodgeButton('noOneBtn')" ontouchstart="dodgeButton('noOneBtn')" onclick="selectFriend('Kisi se nahi', '')" class="w-full py-3 rounded-xl bg-slate-800 text-slate-300 font-semibold transition border border-slate-600 dodging-btn">
-                    Kisi se nahi 🏃‍♂️💨
+
+                <!-- Zoya Option with Photo -->
+                <button onclick="selectFriend('Zoya')" id="friendZoya" class="glass p-3 rounded-2xl border border-slate-700 flex flex-col items-center gap-2 cursor-pointer hover:border-purple-500 transition">
+                    <div class="w-14 h-14 rounded-full overflow-hidden border border-purple-400/40 bg-slate-900">
+                        <img src="zoya.jpg" alt="Zoya" class="w-full h-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&q=80&w=200'">
+                    </div>
+                    <span class="text-xs font-bold text-white">Zoya</span>
                 </button>
             </div>
-            <button onclick="validateStep2()" class="w-full mt-2 py-3 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-bold transition shadow-lg">Confirm Friend & Continue ➔</button>
+
+            <!-- 'Kisi se nahi' button jo bhagega -->
+            <button id="noOneBtn" onmouseover="dodgeButton('noOneBtn')" ontouchstart="dodgeButton('noOneBtn')" onclick="selectFriend('Kisi se nahi')" class="w-full py-2.5 rounded-xl bg-slate-800 text-slate-300 font-semibold transition border border-slate-600 dodging-btn text-xs">
+                Kisi se nahi 🏃‍♂️💨
+            </button>
+
+            <button onclick="validateStep2()" class="w-full mt-1 py-3 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-bold transition shadow-lg">Confirm Friend & Continue ➔</button>
         </div>
 
         <!-- STEP 3: Indian Menu Selection -->
@@ -104,7 +114,6 @@
     <script>
         let chosen1 = "";
         let chosenFriend = "";
-        let friendInsta = "";
 
         function selectOption(step, val) {
             chosen1 = val;
@@ -124,18 +133,16 @@
             document.getElementById('step2').classList.remove('hidden');
         }
 
-        function selectFriend(name, instaUrl) {
+        function selectFriend(name) {
             chosenFriend = name;
-            friendInsta = instaUrl;
             document.getElementById('error2').classList.add('hidden');
             
-            document.getElementById('friendNoor').style.borderColor = name === 'Noor' ? '#a855f7' : '#475569';
-            document.getElementById('friendZoya').style.borderColor = name === 'Zoya' ? '#a855f7' : '#475569';
+            document.getElementById('friendNoor').style.borderColor = name === 'Noor' ? '#a855f7' : '#334155';
+            document.getElementById('friendZoya').style.borderColor = name === 'Zoya' ? '#a855f7' : '#334155';
             document.getElementById('noOneBtn').style.borderColor = name === 'Kisi se nahi' ? '#a855f7' : '#475569';
 
             if(name === 'Noor' || name === 'Zoya') {
                 alert(`⚠️ Warning: Khane ke baad palat mat, wrna bill tumko dena pdega! 😉`);
-                window.open(instaUrl, '_blank');
             }
         }
 
@@ -148,11 +155,10 @@
             document.getElementById('step3').classList.remove('hidden');
         }
 
-        // Dono buttons ke liye universal dodging function (Mobile touch + Desktop hover)
         function dodgeButton(btnId) {
             const btn = document.getElementById(btnId);
-            const randomX = Math.floor(Math.random() * 160) - 80;
-            const randomY = Math.floor(Math.random() * 100) - 50;
+            const randomX = Math.floor(Math.random() * 140) - 70;
+            const randomY = Math.floor(Math.random() * 80) - 40;
             btn.style.transform = `translate(${randomX}px, ${randomY}px)`;
         }
 
