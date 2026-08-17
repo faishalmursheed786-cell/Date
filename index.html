@@ -22,7 +22,7 @@
                 <i class="fa-solid fa-utensils"></i>
             </div>
             <h2 class="text-xl font-extrabold text-white">Gulhasmi didi agr khana order krwana hai to form fill krna pdega.</h2>
-            <p class="text-slate-300 text-base">Kya tum mere sath dinner khane chalogi?</p>
+            <p class="text-slate-300 text-base">🥲</p>
             
             <p class="text-xs text-yellow-400 font-medium bg-yellow-500/10 py-1.5 px-3 rounded-lg border border-yellow-500/20">ℹ️ Pehle aapko ek option select karna zaroori hai!</p>
             <p id="error1" class="text-xs text-rose-400 font-mono hidden">⚠️ Pehle "Haan" select karo!</p>
@@ -44,19 +44,19 @@
             <p class="text-xs text-yellow-400 font-medium bg-yellow-500/10 py-1.5 px-3 rounded-lg border border-yellow-500/20">ℹ️ Noor ya Zoya me se ek ko chunna compulsory hai!</p>
             <p id="error2" class="text-xs text-rose-400 font-mono hidden">⚠️ Pehle Noor ya Zoya select karo!</p>
 
-            <div class="grid grid-cols-2 gap-3 pt-2 justify-items-center">
-                <!-- Noor Option with Indian Passport Size Ratio (3.5:4.5 approx -> w-20 h-28) -->
+            <div class="grid grid-cols-2 gap-4 pt-2 justify-items-center">
+                <!-- Noor Option -->
                 <button onclick="selectFriend('Noor')" id="friendNoor" class="glass p-3 rounded-2xl border border-slate-700 flex flex-col items-center gap-2 cursor-pointer hover:border-purple-500 transition w-full">
-                    <div class="w-20 h-28 rounded-lg overflow-hidden border-2 border-purple-400/60 bg-slate-900 shadow-md">
-                        <img src="noor.jpg" alt="Noor" class="w-full h-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=200'">
+                    <div class="w-28 h-36 rounded-xl overflow-hidden border-2 border-purple-400/60 bg-slate-900 shadow-xl">
+                        <img src="noor.jpg" alt="Noor" class="w-full h-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=300'">
                     </div>
                     <span class="text-xs font-bold text-white">Noor</span>
                 </button>
 
-                <!-- Zoya Option with Indian Passport Size Ratio (3.5:4.5 approx -> w-20 h-28) -->
+                <!-- Zoya Option -->
                 <button onclick="selectFriend('Zoya')" id="friendZoya" class="glass p-3 rounded-2xl border border-slate-700 flex flex-col items-center gap-2 cursor-pointer hover:border-purple-500 transition w-full">
-                    <div class="w-20 h-28 rounded-lg overflow-hidden border-2 border-purple-400/60 bg-slate-900 shadow-md">
-                        <img src="zoya.jpg" alt="Zoya" class="w-full h-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&q=80&w=200'">
+                    <div class="w-28 h-36 rounded-xl overflow-hidden border-2 border-purple-400/60 bg-slate-900 shadow-xl">
+                        <img src="zoya.jpg" alt="Zoya" class="w-full h-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&q=80&w=300'">
                     </div>
                     <span class="text-xs font-bold text-white">Zoya</span>
                 </button>
@@ -98,7 +98,7 @@
                     <span class="text-xs font-semibold">Dal Makhani</span>
                 </label>
             </div>
-            <button onclick="finalizeOrder()" class="w-full py-3 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold transition shadow-lg">Finalize Order 🍽️</button>
+            <button onclick="finalizeOrder()" class="w-full py-3 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold transition shadow-lg">Finalize Order & Send to WhatsApp 🍽️</button>
         </div>
 
         <!-- STEP 4 -->
@@ -108,7 +108,7 @@
             </div>
             <h2 class="text-2xl font-extrabold text-white">Confirmed! 🎉</h2>
             <p id="finalChoiceText" class="text-slate-300 text-sm font-medium leading-relaxed"></p>
-            <p class="text-xs text-slate-400">Date fix ho gayi hai!</p>
+            <p class="text-xs text-slate-400">WhatsApp par message bhej diya gaya hai!</p>
         </div>
 
     </div>
@@ -178,7 +178,18 @@
                 alert('Pehle koi ek Indian dish toh select karo!');
                 return;
             }
-            document.getElementById('finalChoiceText').innerHTML = `Dost selected: <b>${chosenFriend}</b><br>Tumne khane me select kiya hai: <b>"${selected.value}"</b>.<br><span class="text-yellow-400 text-xs">Yaad rakhna, bill ki baat pehle hi ho chuki hai! 😉</span>`;
+            
+            const dish = selected.value;
+            
+            // Aapka WhatsApp Number yahan set hai (+971503928611)
+            const whatsappNumber = "971503928611";
+            const message = `Hello Shah Faishal! 👋\n\nDinner Form Response:\n- Selected Option: ${chosen1}\n- Witness/Friend: ${chosenFriend}\n- Food Choice: ${dish}\n\nDate fix ho gayi hai! 😉`;
+            
+            // WhatsApp URL open karega
+            const whatsappURL = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+            window.open(whatsappURL, '_blank');
+
+            document.getElementById('finalChoiceText').innerHTML = `Dost selected: <b>${chosenFriend}</b><br>Tumne khane me select kiya hai: <b>"${dish}"</b>.<br><span class="text-yellow-400 text-xs">WhatsApp par details bhej di gayi hain! 😉</span>`;
             
             document.getElementById('step3').classList.add('hidden');
             document.getElementById('step4').classList.remove('hidden');
