@@ -16,12 +16,12 @@
 
     <div class="w-full max-w-md glass border border-slate-700/80 rounded-3xl p-6 sm:p-8 shadow-2xl text-center relative overflow-hidden min-h-[460px] flex flex-col justify-center">
 
-        <!-- STEP 1: Khana Khane Chalogi? -->
+        <!-- STEP 1: Gulhasmi didi message -->
         <div id="step1" class="space-y-5">
             <div class="w-16 h-16 mx-auto rounded-full bg-pink-500/20 border border-pink-500/40 flex items-center justify-center text-pink-400 text-2xl">
                 <i class="fa-solid fa-utensils"></i>
             </div>
-            <h2 class="text-2xl font-extrabold text-white">Ek choti si request hai...</h2>
+            <h2 class="text-xl font-extrabold text-white">Gulhasmi didi agr khana hai to jo dil kre to form filup kro</h2>
             <p class="text-slate-300 text-base">Kya tum mere sath dinner khane chalogi?</p>
             
             <p class="text-xs text-yellow-400 font-medium bg-yellow-500/10 py-1.5 px-3 rounded-lg border border-yellow-500/20">ℹ️ Pehle aapko ek option select karna zaroori hai!</p>
@@ -45,17 +45,17 @@
             <p id="error2" class="text-xs text-rose-400 font-mono hidden">⚠️ Pehle Noor ya Zoya select karo!</p>
 
             <div class="grid grid-cols-2 gap-3 pt-2">
-                <!-- Noor Option with Photo -->
+                <!-- Noor Option with Larger Photo -->
                 <button onclick="selectFriend('Noor')" id="friendNoor" class="glass p-3 rounded-2xl border border-slate-700 flex flex-col items-center gap-2 cursor-pointer hover:border-purple-500 transition">
-                    <div class="w-14 h-14 rounded-full overflow-hidden border border-purple-400/40 bg-slate-900">
+                    <div class="w-24 h-24 rounded-full overflow-hidden border-2 border-purple-400/60 bg-slate-900 shadow-md">
                         <img src="noor.jpg" alt="Noor" class="w-full h-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=200'">
                     </div>
                     <span class="text-xs font-bold text-white">Noor</span>
                 </button>
 
-                <!-- Zoya Option with Photo -->
+                <!-- Zoya Option with Larger Photo -->
                 <button onclick="selectFriend('Zoya')" id="friendZoya" class="glass p-3 rounded-2xl border border-slate-700 flex flex-col items-center gap-2 cursor-pointer hover:border-purple-500 transition">
-                    <div class="w-14 h-14 rounded-full overflow-hidden border border-purple-400/40 bg-slate-900">
+                    <div class="w-24 h-24 rounded-full overflow-hidden border-2 border-purple-400/60 bg-slate-900 shadow-md">
                         <img src="zoya.jpg" alt="Zoya" class="w-full h-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&q=80&w=200'">
                     </div>
                     <span class="text-xs font-bold text-white">Zoya</span>
